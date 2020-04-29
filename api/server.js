@@ -1,9 +1,17 @@
-const express = require("express");
+const express = require('express')
 
-const db = require("../data/dbConfig.js");
+// import routers
+const accountRouter = require('../routers/accountRouter')
 
+// init server
 const server = express();
+server.use(express.json())
 
-server.use(express.json());
+// routing
+server.use('/accounts', accountRouter)
 
-module.exports = server;
+server.get('/', (req, res) => {
+  res.send('interact with accounts at /accounts')
+})
+
+module.exports = server
