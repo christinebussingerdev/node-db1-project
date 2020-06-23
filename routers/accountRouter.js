@@ -82,12 +82,14 @@ router.put('/:id', (req, res) => {
 
 // delete account
 router.delete('/:id', (req, res) => {
+  
+
   const accountToDelete = db.findById(req.params.postId) // grab relevant account
 
   if (accountToDelete) {
     db.remove(req.params.postId)
       .then(removedAccount => { // SUCCESS
-        res.sendStatus(204).json(removedAccount)
+        res.status(204).json(removedAccount)
       })
       .catch(err => { // if removing account fails
         res.status(500).json({ error: "The account could not be removed" })
@@ -96,5 +98,18 @@ router.delete('/:id', (req, res) => {
     res.status(404).json({ message: "The account with the specified ID does not exist." })
   }
 })
+
+// function checkAcctId () {
+//   return (req, res, next) => {
+//     db.findById(req.params.id)
+//     .then(account => {
+//       req.account = account
+//       next()
+//     })
+//     .catch(err => {
+
+//     })
+//   }
+// }
 
 module.exports = router
